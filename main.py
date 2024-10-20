@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('7181667243:AAEEhC8WP3g5rU-GicQYkjh8KdbvrUrRwSc')
+bot = telebot.TeleBot('')
 
 CHANNEL_ID = "-1001607712686"  # Replace with your channel ID
 nonte = "1756650011"
@@ -211,21 +211,5 @@ def aass(message):
         lllal1.add(fii)
         lllal1.add(kol)
         bot.send_message(message.chat.id, 'Выберите услугу:', reply_markup=lllal1)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 bot.polling(none_stop=True)
