@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница с черным прямоугольником и каруселью</title>
+    <link href="https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .black-rectangle {
+            width: 100%;
+            height: 50px;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            color: white;
+            font-family: 'MonteCarlo', cursive;
+            font-size: 24px;
+            margin-left: 25px;
+        }
+        .contact-button {
+            width: 100px;
+            height: 30px;
+            margin-right: 20px;
+            box-sizing: border-box;
+            border: 1px solid #FFFFFF;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            overflow: visible;
+            transition: all 0.3s ease;
+        }
+        .contact-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .contact-button:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+        .contact-button span {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            text-decoration-line: underline;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            z-index: 1;
+            position: relative;
+        }
+        .contact-info {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .contact-button:hover .contact-info {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+        .contact-info p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0;
+            color: #000000;
+            white-space: nowrap;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+        }
+        .carousel {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            animation: scroll 60s linear infinite;
+        }
+        .carousel-inner {
+            display: flex;
+            width: 50%;
+            height: 100%;
+        }
+        .carousel-item {
+            flex: 0 0 20%;
+            height: 100%;
+            position: relative;
+        }
+        .carousel-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: black;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.45);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay-text {
+            font-family: 'MonteCarlo', cursive;
+            font-size: 45px;
+            color: white;
+            text-align: center;
+            white-space: nowrap;
+            margin-top: -375px;
+        }
+        .overlay-subtext {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            max-width:50%;
+            margin-top: 20px;
+        }
+        .catalog-form {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .catalog-button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: black;
+            background-color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .catalog-button:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .brands-section {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .brands-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 25px;
+            color: #000000;
+            margin-top: -1px;
+            margin-bottom: 30px;
+        }
+
+        .brands-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand-item {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .brand-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .popular-products {
+            background-color: #000000;
+            padding: 40px 0;
+        }
+
+        .footer-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .product-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            
+        }
+
+        .product-item {
+            width: calc(25% - 30px);
+            margin-bottom: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-name-container {
+            border: 2px solid white;
+            height: 40px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .product-name {
+            font-family: 'MonteCarlo', cursive;
+            font-size: 24px;
+            color: white;
+            margin: 0;
+            padding: 0 5px;
+            text-align: center;
+        }
+
+        .buy-button-container {
+            width: 100%;
+            height: 40px;
+            margin-top: 15px;
+        }
+
+        .buy-button {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px;
+            text-align: center;
+            color: #FFFFFF;
+            text-decoration: none;
+            border: 1px solid #FFFFFF;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #000000;
+        }
+
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            border: 1px solid #FFFFFF;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        .buy-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .buy-button:hover::after {
+            left: 100%;
+        }
+
+        .buy-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background-color: #000000;
+            color: #FFFFFF;
+            padding: 40px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin: 0 20px;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .footer-section p, .footer-section a {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #CCCCCC;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #FFFFFF;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #333333;
+        }
+.footer-text{
+    color: white;
+}
+        @media (max-width: 768px) {
+            .black-rectangle {
+                height: 40px;
+            }
+            .logo {
+                font-size: 20px;
+                margin-left: 15px;
+            }
+            .contact-button {
+                width: 80px;
+                height: 25px;
+                margin-right: 15px;
+            }
+            .contact-button span {
+                font-size: 10px;
+            }
+            .carousel-container {
+                height: 400px;
+            }
+            .carousel-item {
+                flex: 0 0 100%;
+            }
+            .overlay-text {
+                font-size: 30px;
+                margin-top: -200px;
+            }
+            .overlay-subtext {
+                font-size: 16px;
+                max-width: 80%;
+            }
+            .catalog-button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            .brands-title {
+                font-size: 28px;
+            }
+            .brand-item {
+                width: 100px;
+                height: 100px;
+            }
+            .product-title {
+                font-size: 24px;
+            }
+            .product-item {
+                width: calc(50% - 20px);
+            }
+            .buy-button {
+                font-size: 14px;
+            }
+            .footer-section {
+                flex: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .black-rectangle {
+                height: 35px;
+            }
+            .logo {
+                font-size: 18px;
+                margin-left: 10px;
+            }
+            .contact-button {
+                width: 70px;
+                height: 22px;
+                margin-right: 10px;
+            }
+            .contact-button span {
+                font-size: 9px;
+            }
+            .carousel-container {
+                height: 300px;
+            }
+            .overlay-text {
+                font-size: 24px;
+                margin-top: -150px;
+            }
+            .overlay-subtext {
+                font-size: 14px;
+                max-width: 90%;
+            }
+            .catalog-button {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+            .brands-title {
+                font-size: 24px;
+            }
+            .brand-item {
+                width: 80px;
+                height: 80px;
+            }
+            .product-title {
+                font-size: 20px;
+            }
+            .product-item {
+                width: 100%;
+            }
+            .buy-button {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="black-rectangle">
+        <div class="logo">Watch RU</div>
+        <div class="contact-button">
+            <span>Контакты</span>
+            <div class="contact-info">
+                <p>Email: info@watchru.com</p>
+                <p>Тел.: +7 (123) 456-7890</p>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item"><img src="изображения\2photo.jpg" alt="Image 1"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-20_05-38-41.jpg" alt="Image 2"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-20_05-43-53.jpg" alt="Image 3"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-25_09-22-31.jpg" alt="Image 4"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-28_15-17-32.jpg" alt="Image 5"></div>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item"><img src="изображения\2photo.jpg" alt="Image 1"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-20_05-38-41.jpg" alt="Image 2"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-20_05-43-53.jpg" alt="Image 3"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-25_09-22-31.jpg" alt="Image 4"></div>
+                <div class="carousel-item"><img src="изображения\photo_2024-07-28_15-17-32.jpg" alt="Image 5"></div>
+            </div>
+        </div>
+        <div class="overlay">
+            <div class="overlay-text">Timeless Elegance, Precision Crafted</div>
+            <div class="overlay-subtext">Мы предлагаем вам уникальную коллекцию часов, каждая модель которых является произведением искусства и технологий</div>
+            <form action="https://t.me/wtchru" class="catalog-form">
+                <input class="catalog-button" type="submit" value="Перейти в каталог" />
+            </form>
+        </div>
+    </div>
+    <div class="brands-section">
+        <h2 class="brands-title">Именитые бренды</h2>
+        <div class="brands-container">
+            <div class="brand-item"><img src="brands_izob\fossil-logo-5D0FB64E38-seeklogo.com.png" alt="Бренд 1"></div>
+            <div class="brand-item"><img src="brands_izob\6bd19d1d60f6feeb8fac28bcc528321c.jpg" alt="Бренд 2"></div>
+            <div class="brand-item"><img src="brands_izob\Festina_watches-logo-A49B8F36C3-seeklogo.com.png" alt="Бренд 3"></div>
+            <div class="brand-item"><img src="brands_izob\31c44d2f5200331d76a458baad2cd699.png" alt="Бренд 4"></div>
+            <div class="brand-item"><img src="brands_izob\Sector_Sport_Watches-logo-B93EDD78F8-seeklogo.com.png" alt="Бренд 5"></div>
+            <div class="brand-item"><img src="brands_izob\tudor-watches-logo-B4F20B55D3-seeklogo.com.png" alt="Бренд 6"></div>
+        </div>
+    </div>
+    <div class="popular-products">
+        <div class="footer-text">Популярные товары</div>
+        <div class="product-container">
+            <div class="product-item">
+                <img src="izobpopt\photo_2024-07-20_05-38-42.jpg" alt="Товар 1" class="product-image">
+                <div class="product-name-container">
+                    <p class="product-name">Omega Speedmaster</p>
+                </div>
+                <div class="buy-button-container">
+                    <a href="https://t.me/wtchru" class="buy-button">Купить</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="izobpopt\photo_2024-07-20_05-43-54.jpg" alt="Товар 2" class="product-image">
+                <div class="product-name-container">
+                    <p class="product-name">Rolex</p>
+                </div>
+                <div class="buy-button-container">
+                    <a href="https://t.me/wtchru" class="buy-button">Купить</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="izobpopt\photo_2024-09-07_04-26-54.jpg" alt="Товар 3" class="product-image">
+                <div class="product-name-container">
+                    <p class="product-name">Tag Heuer Monaco</p>
+                </div>
+                <div class="buy-button-container">
+                    <a href="https://t.me/wtchru" class="buy-button">Купить</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="izobpopt\photo_2024-09-12_14-24-41 (2).jpg" alt="Товар 4" class="product-image">
+                <div class="product-name-container">
+                    <p class="product-name">Boss</p>
+                </div>
+                <div class="buy-button-container">
+                    <a href="https://t.me/wtchru" class="buy-button">Купить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>О нас</h3>
+                <p>Watch RU - ваш надежный партнер в мире элитных часов. Мы предлагаем широкий выбор брендовых часов и гарантируем подлинность каждого изделия.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>Email: info@watchru.com</p>
+                <p>Телефон: +7 (123) 456-7890</p>
+                <p>Адрес: г. Москва, ул. Часовая, д. 1</p>
+            </div>
+            <div class="footer-section">
+                <h3>Быстрые ссылки</h3>
+                <p><a href="#">Главная</a></p>
+                <p><a href="#">Каталог</a></p>
+                <p><a href="#">О нас</a></p>
+                <p><a href="#">Контакты</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Подпишитесь на нас</h3>
+                <div class="social-icons">
+                    <a href="#" title="Facebook">&#xf09a;</a>
+                    <a href="#" title="Instagram">&#xf16d;</a>
+                    <a href="#" title="Twitter">&#xf099;</a>
+                    <a href="#" title="YouTube">&#xf167;</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Watch RU. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>
